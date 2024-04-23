@@ -12,7 +12,7 @@ interface LayoutProps {
 export default function Layout({ title, canGoBack, hasTabBar, children }: LayoutProps) {
 	return (
 		<div className="max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504] overflow-hidden">
-			<div className="w-full max-w-xl flex justify-center text-lg px-5 ">
+			<div className="w-full max-w-xl flex justify-center text-lg px-5 pt-5 ">
 				{canGoBack ? <button className="absolute left-4 bg-[#060504] text-[#f4f5f0] rounded-full p-3">Go back</button> : null}
 				{title ? <h1 className="font-bold text-2xl border-b-[1px] border-[#060504] w-full pt-5 pb-3">{title}</h1> : null}
 			</div>
