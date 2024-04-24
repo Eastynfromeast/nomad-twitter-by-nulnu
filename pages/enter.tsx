@@ -1,9 +1,11 @@
 import { NextPage } from "next/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { cls } from "../lib/client/utils";
-import Input from "../components/input";
 import Link from "next/link";
+import Input from "../components/input";
+import useMutation from "../lib/client/useMutation";
+import { useRouter } from "next/router";
 
 interface IEnterForm {
 	email?: string;
@@ -11,8 +13,10 @@ interface IEnterForm {
 }
 
 const Enter: NextPage = () => {
+	const [enter, { loading, data, error }] = useMutation("/api/users/enter");
 	const { register, handleSubmit, reset } = useForm();
 	const [method, setMethod] = useState<"email" | "phone">("email");
+	const router = useRouter();
 
 	const onClickEmail = () => {
 		reset();
@@ -24,17 +28,27 @@ const Enter: NextPage = () => {
 	};
 
 	const onValid = (validForm: IEnterForm) => {
-		console.log(validForm);
+		if (loading) return;
+		enter(validForm);
 	};
+
+	useEffect(() => {
+		console.log(data);
+		if (data?.findUser === null) {
+			alert("You don't have an account. Please join us!");
+			router.push("/create-account");
+		}
+	}, [data]);
+
 	return (
 		<div className="px-5 max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504]">
-			<h1 className="text-5xl font-bold pt-32 pb-8 border-transparent border-[1px] border-b-[#060504]">
+			<h1 className="text-4xl font-bold pt-32 pb-8 border-transparent border-[1px] border-b-[#060504]">
 				Welcome to
 				<br />
 				Nomad Twitter
 			</h1>
-			<div className="flex flex-col items-center mt-9">
-				<h2 className="text-2xl font-bold py-4">Log in</h2>
+			<div className="flex flex-col items-center mt-8">
+				<h2 className="text-2xl font-bold pb-6">Log in</h2>
 				<ul className="grid grid-cols-2 w-full mb-7">
 					<li className="text-center">
 						<button

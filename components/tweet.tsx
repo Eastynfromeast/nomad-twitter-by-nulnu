@@ -11,7 +11,7 @@ interface TweetProps {
 export default function Tweet({ userId, id, createdAt, hearts, contents }: TweetProps) {
 	return (
 		<Link href={`/tweets/${id}`}>
-			<a className="h-40 py-2 border-b-[1px] border-[#060504] border-dashed relative">
+			<a className="h-40 border-b-[1px] border-[#060504] border-dashed relative">
 				<div className="flex justify-between space-x-3">
 					<div className="w-14 h-14  border border-[#060504] border-dashed" />
 					<div className="w-[90%] *:w-full">

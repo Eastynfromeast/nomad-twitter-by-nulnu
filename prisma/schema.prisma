@@ -6,6 +6,58 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  relationMode = "prisma"
+}
+
+
+model User {
+  id Int @id @default(autoincrement())
+  name String?
+  phone String? @unique
+  email String? @unique
+  avatar String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  token Token[]
+  tweets Tweet[]
+  favs Fav[]
+}
+
+model Token {
+  id Int @id @default(autoincrement())
+  payload String @unique
+  use User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Tweet {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  context String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  favs Fav[]
+
+  @@index([userId])
+}
+
+model Fav {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  tweet Tweet @relation(fields: [tweetId], references: [id], onDelete: Cascade)
+  tweetId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([tweetId])
 }
