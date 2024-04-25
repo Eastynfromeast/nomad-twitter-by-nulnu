@@ -5,6 +5,7 @@ import Button from "../../components/button";
 import useUser from "../../lib/client/useUser";
 import useMutation from "../../lib/client/useMutation";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface IValidTweet {
 	context: string;
@@ -19,10 +20,11 @@ const Write: NextPage = () => {
 		if (loading) return;
 		postTweet(validTweet);
 	};
-
+	const router = useRouter();
 	useEffect(() => {
 		if (data?.ok) {
 			console.log(data);
+			router.push(`/tweets/${data.newTweet.id}`);
 		}
 	}, [data]);
 

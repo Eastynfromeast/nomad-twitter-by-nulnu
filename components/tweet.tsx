@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-interface TweetProps {
+export interface ITweetProps {
 	userId: string;
 	id: number;
 	createdAt: string;
@@ -8,7 +8,7 @@ interface TweetProps {
 	contents: string;
 }
 
-export default function Tweet({ userId, id, createdAt, hearts, contents }: TweetProps) {
+export default function Tweet({ userId, id, createdAt, hearts, contents }: ITweetProps) {
 	return (
 		<Link href={`/tweets/${id}`}>
 			<a className="h-40 border-b-[1px] border-[#060504] border-dashed relative">

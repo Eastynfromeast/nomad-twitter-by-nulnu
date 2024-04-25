@@ -21,8 +21,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			},
 		});
 
-		console.log(newTweet);
-
 		res.json({
 			ok: true,
 			newTweet,
