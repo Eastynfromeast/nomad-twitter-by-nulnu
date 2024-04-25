@@ -9,7 +9,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) 
 
 	const payload = Math.floor(100000 + Math.random() * 900000) + "";
 	let token;
-	const findUser = await db.user.findUnique({
+	let findUser;
+	findUser = await db.user.findUnique({
 		where: {
 			...user,
 		},
@@ -27,7 +28,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) 
 			},
 		});
 	}
-	const sendData = findUser ? "Your token is generated" : findUser;
+	const sendData = findUser !== null ? token : null;
 	return res.json({
 		ok: true,
 		sendData,

@@ -18,6 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) 
 	console.log(user);
 	return res.json({
 		ok: true,
+		user,
 	});
 }
 

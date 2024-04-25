@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { cls } from "../../lib/client/utils";
 import Input from "../../components/input";
@@ -29,6 +29,12 @@ export default function CreateAcount() {
 		if (loading) return;
 		join(validForm);
 	};
+
+	useEffect(() => {
+		if (data?.user !== undefined) {
+			alert("Thank you for joining! We are moving to the homepage");
+		}
+	}, [data]);
 
 	return (
 		<div className="px-5 max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504]">

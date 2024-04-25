@@ -8,6 +8,8 @@ import useMutation from "../lib/client/useMutation";
 import { useRouter } from "next/router";
 import Button from "../components/button";
 import useUser from "../lib/client/useUser";
+import { userInfo } from "os";
+import Loading from "../components/loading";
 
 interface IEnterForm {
 	email?: string;
@@ -24,8 +26,8 @@ interface IMutationResult {
 }
 
 const Enter: NextPage = () => {
-	const { user, isLoading } = useUser();
-	console.log(user);
+	const { user: userData, isLoading } = useUser();
+
 	const [enter, { loading, data }] = useMutation("/api/users/enter");
 	const [confirmToken, { loading: tokenLoading, data: tokenData }] = useMutation<IMutationResult>("/api/users/confirm");
 	const { register, handleSubmit, reset } = useForm();
@@ -53,6 +55,14 @@ const Enter: NextPage = () => {
 	};
 
 	useEffect(() => {
+		if (userData !== undefined) {
+			alert("You are already logged in!");
+			console.log(userData);
+			// router.push("/");
+		}
+	}, [userData]);
+
+	useEffect(() => {
 		if (data?.sendData === null) {
 			alert("You don't have an account. Please join us!");
 			router.push("/create-account");
@@ -70,7 +80,7 @@ const Enter: NextPage = () => {
 	return (
 		<div className="px-5 max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504]">
 			{isLoading ? (
-				<h2 className="text-3xl font-bold text-center py-16"> Checking login status...</h2>
+				<Loading text="checking login status" />
 			) : (
 				<>
 					<h1 className="text-4xl font-bold pt-32 pb-8 border-transparent border-[1px] border-b-[#060504]">

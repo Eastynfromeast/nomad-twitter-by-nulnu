@@ -2,6 +2,7 @@ import React from "react";
 import { cls } from "../lib/client/utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useUser from "../lib/client/useUser";
 
 interface LayoutProps {
 	title?: string;
@@ -11,6 +12,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ title, canGoBack, hasTabBar, children }: LayoutProps) {
+	const { user } = useUser();
 	const router = useRouter();
 	const onClickBack = () => {
 		router.back();
@@ -33,9 +35,7 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
 			<div className={cls("pt-4", hasTabBar ? "pb-24" : "")}>{children}</div>
 			{hasTabBar ? (
 				<nav className="flex justify-between bg-[#F4F5F0] border-t-[1px] border-[#060504] p-4 fixed bottom-0 w-full max-w-xl box-border">
-					<Link href="/enter">
-						<a className="font-bold">Log In</a>
-					</Link>
+					<a className="font-bold">{user ? "Log out" : "Log in"}</a>
 					<Link href="/">
 						<a className="font-bold">Home</a>
 					</Link>

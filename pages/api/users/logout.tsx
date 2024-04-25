@@ -1,21 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import db from "../../../lib/server/db";
 import { withApiSession } from "../../../lib/server/withSession";
 import withHandler from "../../../lib/server/withHandler";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-	let presentUser;
-	if (req.session.user) {
-		presentUser = await db.user.findUnique({
-			where: {
-				id: req.session.user?.id,
-			},
-		});
+	const session = req.session;
+	if (session) {
+		await session.destroy();
+		res.setHeader("Set-Cookie", "");
+		res.status(200).send("Logge out successfully");
+	} else {
+		res.status(400).send("No session found");
 	}
 
 	res.json({
 		ok: true,
-		presentUser,
+		session,
 	});
 }
 
