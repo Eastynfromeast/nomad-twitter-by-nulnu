@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResponseType } from "../../../lib/server/withHandler";
-import db from "../../../lib/db";
+import db from "../../../lib/server/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) {
 	const { phone, email } = req.body;
