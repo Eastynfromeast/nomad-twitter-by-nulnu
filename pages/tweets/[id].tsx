@@ -8,19 +8,24 @@ import Loading from "../../components/loading";
 import { Tweet, User } from "@prisma/client";
 import { cls } from "../../lib/client/utils";
 import useMutation from "../../lib/client/useMutation";
+import TweetItem from "../../components/tweet";
 
-interface TweetWithUser extends Tweet {
+export interface TweetWithUser extends Tweet {
 	user: User;
+	_count: {
+		favs: number;
+	};
 }
 interface ITweetDataResponse {
 	ok: boolean;
 	tweet: TweetWithUser;
-	relatedTweets: Tweet[];
+	relatedTweets: TweetWithUser[];
 	isLiked: boolean;
 }
 const TweetPage: NextPage = () => {
 	const router = useRouter();
-	const { data, mutate, isValidating } = useSWR<ITweetDataResponse>(router.query.id ? `/api/tweets/${router.query.id}` : null);
+	const { data, mutate } = useSWR<ITweetDataResponse>(router.query.id ? `/api/tweets/${router.query.id}` : null);
+	console.log(data);
 	const [createdDate, setCreatedDate] = useState("");
 	const changeDateFormat = (createdAt: Date) => {
 		const date = new Date(createdAt);
@@ -45,7 +50,7 @@ const TweetPage: NextPage = () => {
 				<title>Tweets</title>
 			</Head>
 			<div className="px-5">
-				{isValidating ? <Loading text="We are calling..." /> : null}
+				{/* {isValidating ? <Loading text="We are calling..." /> : null} */}
 				{data?.tweet !== null ? (
 					<div className="flex justify-between space-x-3 min-h-[160px] border-b-[1px] border-[#060504] border-dashed relative">
 						<div className="w-14 h-14  border border-[#060504] border-dashed" />
@@ -80,6 +85,7 @@ const TweetPage: NextPage = () => {
 											d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
 										/>
 									</svg>
+									<span>{data?.tweet?._count.favs}</span>
 								</button>
 							</div>
 						</div>
@@ -87,6 +93,21 @@ const TweetPage: NextPage = () => {
 				) : (
 					<Loading text="there was no tweet you are looking for... " />
 				)}
+				<div className="mt-6">
+					<h2 className="border-b-[1px] border-[#060504] text-lg font-semibold pb-4">Maybe you will like this post too...</h2>
+					<div className="mt-6 flex flex-col space-y-4 ">
+						{data?.relatedTweets?.map((tweet: TweetWithUser) => (
+							<TweetItem
+								key={tweet.id}
+								userName={tweet.user.name ? tweet.user.name : "Anonymous"}
+								id={tweet.id}
+								createdAt={tweet.createdAt}
+								hearts={tweet?._count?.favs}
+								contents={tweet.context}
+							/>
+						))}
+					</div>
+				</div>
 			</div>
 		</Layout>
 	);

@@ -4,6 +4,26 @@ import { withApiSession } from "../../../lib/server/withSession";
 import withHandler from "../../../lib/server/withHandler";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+	if (req.method === "GET") {
+		const tweets = await db.tweet.findMany({
+			include: {
+				user: {
+					select: {
+						name: true,
+					},
+				},
+				_count: {
+					select: {
+						favs: true,
+					},
+				},
+			},
+		});
+		res.json({
+			ok: true,
+			tweets,
+		});
+	}
 	if (req.method === "POST") {
 		const {
 			body: { context },
@@ -28,4 +48,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 	}
 }
 
-export default withApiSession(withHandler({ methods: ["POST"], handler }));
+export default withApiSession(withHandler({ methods: ["GET", "POST"], handler }));

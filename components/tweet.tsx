@@ -1,23 +1,29 @@
 import Link from "next/link";
 
 export interface ITweetProps {
-	userId: string;
 	id: number;
-	createdAt: string;
+	createdAt: Date;
 	hearts: number;
 	contents: string;
+	userName: string;
+	[key: string]: any;
 }
 
-export default function Tweet({ userId, id, createdAt, hearts, contents }: ITweetProps) {
+export default function TweetItem({ id, userName, createdAt, hearts, contents, ...rest }: ITweetProps) {
+	const changeDateFormat = (createdAt: Date) => {
+		const date = new Date(createdAt);
+		let formattedDate = date.toLocaleDateString("en-Us", { month: "short", day: "2-digit" });
+		return formattedDate;
+	};
 	return (
-		<Link href={`/tweets/${id}`}>
+		<Link href={`/tweets/${id}`} {...rest}>
 			<a className="h-40 border-b-[1px] border-[#060504] border-dashed relative">
 				<div className="flex justify-between space-x-3">
 					<div className="w-14 h-14  border border-[#060504] border-dashed" />
 					<div className="w-[90%] *:w-full">
 						<div className="flex justify-between">
-							<h6 className="font-bold">{userId}</h6>
-							<p>{createdAt}</p>
+							<h6 className="font-bold">{userName}</h6>
+							<p>{changeDateFormat(createdAt)}</p>
 						</div>
 						<div>
 							<p>{contents}</p>

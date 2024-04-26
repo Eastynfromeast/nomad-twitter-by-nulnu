@@ -20,6 +20,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 					name: true,
 				},
 			},
+			_count: {
+				select: {
+					favs: true,
+				},
+			},
 		},
 	});
 
@@ -35,6 +40,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			AND: {
 				id: {
 					not: tweet?.id,
+				},
+			},
+		},
+		include: {
+			user: {
+				select: {
+					name: true,
+				},
+			},
+			_count: {
+				select: {
+					favs: true,
 				},
 			},
 		},

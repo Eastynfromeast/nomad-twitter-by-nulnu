@@ -18,12 +18,12 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
 		router.back();
 	};
 	return (
-		<div className="max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504] overflow-hidden relative">
-			<div className="w-full max-w-xl flex justify-center text-lg px-5 pt-5 ">
+		<div className="max-w-xl mx-auto min-h-screen  bg-[#F4F5F0] text-[#060504] relative shadow-lg ">
+			<div className="w-full max-w-xl flex justify-center text-lg px-5 pt-5">
 				{canGoBack ? (
 					<button
 						onClick={onClickBack}
-						className="absolute inline-block align-middle font-semibold left-4 border-transparent border  text-[#060504] px-2 py-1 text-sm after:content-[''] after:w-0 after:h-[1px] after:bg-[#060504] after:transition-all hover:after:w-full"
+						className="absolute inline-block align-middle font-semibold left-4 top-8 border-transparent border text-[#060504] px-2 py-1 text-sm  hover:border-b-[1px] hover:border-b-[#060504] transition-all"
 					>
 						Back
 					</button>
