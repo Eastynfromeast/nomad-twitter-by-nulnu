@@ -37,7 +37,7 @@ export default function CreateAcount() {
 	}, [data]);
 
 	return (
-		<div className="px-5 max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504]">
+		<div className="px-5 max-w-xl mx-auto min-h-screen base_color">
 			<h1 className="text-4xl font-bold pt-32 pb-8 border-transparent border-[1px] border-b-[#060504]">
 				Come and
 				<br />

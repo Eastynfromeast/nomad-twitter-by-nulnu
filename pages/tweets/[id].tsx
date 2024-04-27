@@ -9,6 +9,7 @@ import { Tweet, User } from "@prisma/client";
 import { cls } from "../../lib/client/utils";
 import useMutation from "../../lib/client/useMutation";
 import TweetItem from "../../components/tweet";
+import SkeletonTweet from "../../components/skeletonTweet";
 
 export interface TweetWithUser extends Tweet {
 	user: User;
@@ -49,11 +50,11 @@ const TweetPage: NextPage = () => {
 			<Head>
 				<title>Tweets</title>
 			</Head>
-			<div className="px-5">
+			<div>
 				{/* {isValidating ? <Loading text="We are calling..." /> : null} */}
 				{data?.tweet !== null ? (
 					<div className="flex justify-between space-x-3 min-h-[160px] border-b-[1px] border-[#060504] border-dashed relative">
-						<div className="w-14 h-14  border border-[#060504] border-dashed" />
+						<div className="profile_img empty" />
 						<div className="w-[90%] *:w-full">
 							<div className="flex justify-between">
 								<h6 className="font-bold">{data?.tweet?.user.name}</h6>
@@ -91,21 +92,25 @@ const TweetPage: NextPage = () => {
 						</div>
 					</div>
 				) : (
-					<Loading text="there was no tweet you are looking for... " />
+					<SkeletonTweet />
 				)}
 				<div className="mt-6">
 					<h2 className="border-b-[1px] border-[#060504] text-lg font-semibold pb-4">Maybe you will like this post too...</h2>
 					<div className="mt-6 flex flex-col space-y-4 ">
-						{data?.relatedTweets?.map((tweet: TweetWithUser) => (
-							<TweetItem
-								key={tweet.id}
-								userName={tweet.user.name ? tweet.user.name : "Anonymous"}
-								id={tweet.id}
-								createdAt={tweet.createdAt}
-								hearts={tweet?._count?.favs}
-								contents={tweet.context}
-							/>
-						))}
+						{data?.relatedTweets && data?.relatedTweets.length > 0 ? (
+							data?.relatedTweets?.map((tweet: TweetWithUser) => (
+								<TweetItem
+									key={tweet.id}
+									userName={tweet.user.name ? tweet.user.name : "Anonymous"}
+									id={tweet.id}
+									createdAt={tweet.createdAt}
+									hearts={tweet?._count?.favs}
+									contents={tweet.context}
+								/>
+							))
+						) : (
+							<p className="text-center text-neutral-400 font-medium text-lg">There is no related tweet :(</p>
+						)}
 					</div>
 				</div>
 			</div>

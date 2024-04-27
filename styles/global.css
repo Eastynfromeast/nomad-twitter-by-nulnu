@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Noto+Sans+KR:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -10,14 +10,34 @@
 		font-optical-sizing: auto;
 		font-weight: <weight>;
 		font-style: normal;
-		}
+	}
 */
+
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	src: local("Roboto"), local("Roboto-Regular"), url("https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu72xKOzY.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Noto Sans KR";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Noto Sans KR Regular"), url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap") format("woff2");
+	unicode-range: U+AC00-D7AF;
+}
+
+@layer components {
+	.skeleton {
+		@apply animate-shimmer bg-gradient-custom bg-custom;
+	}
+}
 
 html,
 body {
 	padding: 0;
 	margin: 0;
-	font-family: "Newsreader", serif;
+	font-family: "Newsreader", "Roboto", "Noto Sans KR", serif;
 	background-color: #fcfcfc;
 }
 
@@ -31,6 +51,18 @@ a {
 	box-sizing: border-box;
 }
 
+.base_color {
+	@apply bg-[#F4F5F0] text-[#060504];
+}
+
 .btn {
 	@apply flex justify-center items-center mt-7 w-full py-3 border-[1px] border-[#060504] hover:bg-[#060504] hover:text-white focus:ring-2 focus:ring-offset-1 focus:ring-red-400 focus:outline-none transition-all;
+}
+
+.profile_img {
+	@apply w-14 h-14 drop-shadow-md;
+}
+
+.empty {
+	@apply bg-neutral-200;
 }

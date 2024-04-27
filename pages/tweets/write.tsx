@@ -33,12 +33,12 @@ const Write: NextPage = () => {
 			<div className=" w-full px-5">
 				<form onSubmit={handleSubmit(onValid)} className="w-full clear-both">
 					<div className="flex space-x-4">
-						<div className="w-14 h-14  border border-[#060504] border-dashed" />
+						<div className="profile_img empty" />
 						<div className="w-[85%]">
 							<textarea
 								{...register("context", { required: true })}
 								placeholder="What is happening?"
-								className="bg-transparent w-full h-32 border border-[#060504] border-dashed p-2 outline-none transition-all  focus:border-orange-500 focus:bg-white"
+								className="bg-transparent drop-shadow-lg w-full h-32 border border-[#060504] border-dashed p-2 outline-none transition-all  focus:border-transparent focus:ring-2 focus:ring-orange-400 "
 							/>
 						</div>
 					</div>

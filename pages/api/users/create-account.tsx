@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResponseType } from "../../../lib/server/withHandler";
 import db from "../../../lib/server/db";
+import { withApiSession } from "../../../lib/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) {
 	const { phone, email } = req.body;
@@ -22,4 +23,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) 
 	});
 }
 
-export default withHandler({ methods: ["POST"], handler, isPrivate: false });
+export default withApiSession(withHandler({ methods: ["POST"], handler }));

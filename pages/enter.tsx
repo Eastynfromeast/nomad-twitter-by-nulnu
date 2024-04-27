@@ -8,7 +8,6 @@ import useMutation from "../lib/client/useMutation";
 import { useRouter } from "next/router";
 import Button from "../components/button";
 import useUser from "../lib/client/useUser";
-import { userInfo } from "os";
 import Loading from "../components/loading";
 
 interface IEnterForm {
@@ -78,7 +77,7 @@ const Enter: NextPage = () => {
 	}, [tokenData]);
 
 	return (
-		<div className="px-5 max-w-xl mx-auto min-h-screen bg-[#F4F5F0] text-[#060504]">
+		<div className="px-5 max-w-xl mx-auto min-h-screen base_color">
 			{isLoading ? (
 				<Loading text="checking login status" />
 			) : (
