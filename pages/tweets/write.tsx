@@ -6,6 +6,7 @@ import useUser from "../../lib/client/useUser";
 import useMutation from "../../lib/client/useMutation";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { cls } from "lib/client/utils";
 
 interface IValidTweet {
 	context: string;
@@ -30,10 +31,12 @@ const Write: NextPage = () => {
 
 	return (
 		<Layout canGoBack title="Write a tweet">
-			<div className=" w-full px-5">
+			<div className=" w-full">
 				<form onSubmit={handleSubmit(onValid)} className="w-full clear-both">
 					<div className="flex space-x-4">
-						<div className="profile_img empty" />
+						<div className={cls("profile_img", user?.avatar !== null ? "" : "empty")}>
+							{user?.avatar !== null ? <img src={user?.avatar} className="w-full rounded-md" /> : null}
+						</div>
 						<div className="w-[85%]">
 							<div className="flex justify-between mb-2">
 								<h6 className="font-bold">{user.name ? user.name : "User"}</h6>

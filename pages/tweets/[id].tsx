@@ -116,7 +116,7 @@ const TweetPage: NextPage = () => {
 					<SkeletonTweet />
 				)}
 				<div className="mt-6">
-					<h2 className="border-b-[1px] border-[#060504] text-lg font-semibold pb-4">Maybe you will like this post too...</h2>
+					<h2 className="text-lg font-semibold pb-4">Maybe you will like this post too...</h2>
 					<div className="flex flex-col">
 						{data?.relatedTweets && data?.relatedTweets.length > 0 ? (
 							data?.relatedTweets?.map((tweet: TweetWithUser) => (
@@ -131,7 +131,7 @@ const TweetPage: NextPage = () => {
 								/>
 							))
 						) : (
-							<p className="text-center text-neutral-400 font-medium text-lg">There is no related tweet :(</p>
+							<p className="text-center text-neutral-400 font-medium text-lg py-2">There is no related tweet :(</p>
 						)}
 					</div>
 				</div>
