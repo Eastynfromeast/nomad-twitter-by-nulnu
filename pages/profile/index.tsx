@@ -6,7 +6,6 @@ import useSWR from "swr";
 import IconPen from "../../components/icon/IconPen";
 import TweetItem from "../../components/tweet";
 import { TweetWithUser } from "../tweets/[id]";
-import { User } from "@prisma/client";
 
 const Profile: NextPage = () => {
 	const { data } = useSWR("/api/users/profile");
@@ -63,17 +62,23 @@ const Profile: NextPage = () => {
 					</div>
 				</div>
 			</div>
-			{data?.usersTweets &&
-				data?.usersTweets.map((tweet: TweetWithUser) => (
-					<TweetItem
-						key={tweet.id}
-						userName={tweet?.user?.name ? tweet.user.name : "Anonymous"}
-						id={tweet.id}
-						createdAt={tweet.createdAt}
-						hearts={tweet?._count?.favs}
-						contents={tweet.context}
-					/>
-				))}
+			<div className="pt-6">
+				<h2 className="text-lg font-semibold pb-4">What they said...</h2>
+				{data?.usersTweets && data?.usersTweets.length === 0 ? (
+					<p className="text-center text-neutral-400 font-medium text-lg"> No posted tweet yet:(</p>
+				) : (
+					data?.usersTweets.map((tweet: TweetWithUser) => (
+						<TweetItem
+							key={tweet.id}
+							userName={tweet?.user?.name ? tweet.user.name : "Anonymous"}
+							id={tweet.id}
+							createdAt={tweet.createdAt}
+							hearts={tweet?._count.favs}
+							contents={tweet.context}
+						/>
+					))
+				)}
+			</div>
 		</Layout>
 	);
 };

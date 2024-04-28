@@ -4,7 +4,6 @@ import Head from "next/head";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Loading from "../../components/loading";
 import { Tweet, User } from "@prisma/client";
 import { cls } from "../../lib/client/utils";
 import useMutation from "../../lib/client/useMutation";
@@ -27,7 +26,7 @@ const TweetPage: NextPage = () => {
 	const router = useRouter();
 	const { data, mutate } = useSWR<ITweetDataResponse>(router.query.id ? `/api/tweets/${router.query.id}` : null);
 	const [isLiked, setIsLiked] = useState(data?.isLiked);
-	const [likedNum, setLikedNum] = useState<number>(data?.tweet?._count.favs);
+	const [likedNum, setLikedNum] = useState(0);
 	const [createdDate, setCreatedDate] = useState("");
 	const changeDateFormat = (createdAt: Date) => {
 		const date = new Date(createdAt);
@@ -59,7 +58,10 @@ const TweetPage: NextPage = () => {
 	};
 	useEffect(() => {
 		console.log(data);
-		if (data) setCreatedDate(() => changeDateFormat(data?.tweet?.createdAt));
+		if (data) {
+			setCreatedDate(() => changeDateFormat(data?.tweet?.createdAt));
+			setLikedNum(data?.tweet?._count?.favs);
+		}
 	}, [data]);
 
 	return (

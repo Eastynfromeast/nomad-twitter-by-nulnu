@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
 import Layout from "../components/layout";
 import Head from "next/head";
+import useSWR from "swr";
 import TweetItem from "../components/tweet";
 import FloatingButton from "../components/floatingButton";
 import useUser from "../lib/client/useUser";
-import { useRouter } from "next/router";
 import Loading from "../components/loading";
-import useSWR from "swr";
 import { TweetWithUser } from "./tweets/[id]";
 
 interface ITweetDataResponse {

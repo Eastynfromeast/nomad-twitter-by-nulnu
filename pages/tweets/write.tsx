@@ -24,7 +24,7 @@ const Write: NextPage = () => {
 	useEffect(() => {
 		if (data?.ok) {
 			console.log(data);
-			router.push(`/tweets/${data.newTweet.id}`);
+			router.replace(`/tweets/${data.newTweet.id}`);
 		}
 	}, [data]);
 

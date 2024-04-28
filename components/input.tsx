@@ -22,7 +22,7 @@ export default function Input({ label, name, kind = "text", placeholder, registe
 						{...rest}
 						type={type}
 						placeholder={placeholder}
-						className="bg-transparent outline-none w-full invalid:border invalid:border-pink-500 invalid:text-pink-600"
+						className="p-1 bg-transparent outline-none w-full invalid:border invalid:border-pink-500 invalid:text-pink-600"
 					/>
 				</div>
 			) : null}
