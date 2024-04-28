@@ -6,7 +6,7 @@ export default function useUser() {
 	const { data, error } = useSWR("/api/users/me");
 	const router = useRouter();
 	useEffect(() => {
-		if (data && !data.ok) {
+		if (data && data.presentUser == null) {
 			router.push("/enter");
 		}
 	}, [data]);

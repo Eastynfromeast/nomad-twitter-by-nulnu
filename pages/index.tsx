@@ -43,7 +43,7 @@ const Home: NextPage = () => {
 					/>
 				))}
 			</div>
-			<FloatingButton text="Write" link="/tweets/write" />
+			<FloatingButton text="Write" type="write" link="/tweets/write" />
 		</Layout>
 	);
 };

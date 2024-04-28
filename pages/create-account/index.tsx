@@ -5,6 +5,7 @@ import Input from "../../components/input";
 import Link from "next/link";
 import Button from "../../components/button";
 import useMutation from "../../lib/client/useMutation";
+import { useRouter } from "next/router";
 
 interface IJoinForm {
 	email?: string;
@@ -30,9 +31,11 @@ export default function CreateAcount() {
 		join(validForm);
 	};
 
+	const router = useRouter();
 	useEffect(() => {
 		if (data?.user !== undefined) {
-			alert("Thank you for joining! We are moving to the homepage");
+			alert("Thank you for joining! We are moving to the login page");
+			router.push("/enter");
 		}
 	}, [data]);
 
@@ -69,15 +72,16 @@ export default function CreateAcount() {
 						</button>
 					</li>
 				</ul>
-				<form onSubmit={handleSubmit(onValid)} className="flex flex-col w-full px-5">
-					<div className=" flex flex-col w-full">
+				<form onSubmit={handleSubmit(onValid)} className="flex flex-col w-full  px-5">
+					<div className=" flex flex-col gap-y-4 w-full">
+						<Input register={register("name", { required: true })} name="name" label="Name" type="text" placeholder="Put your name here!" />
 						{method === "email" ? (
 							<Input register={register("email", { required: true })} name="email" label="Email address" type="email" placeholder="Put your email address" />
 						) : (
 							<Input
 								register={register("phone", { required: true })}
 								name="phone"
-								label="phone number"
+								label="Phone number"
 								type="number"
 								kind="phone"
 								placeholder="Put your phone number"

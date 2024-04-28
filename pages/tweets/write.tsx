@@ -35,6 +35,9 @@ const Write: NextPage = () => {
 					<div className="flex space-x-4">
 						<div className="profile_img empty" />
 						<div className="w-[85%]">
+							<div className="flex justify-between mb-2">
+								<h6 className="font-bold">{user.name ? user.name : "User"}</h6>
+							</div>
 							<textarea
 								{...register("context", { required: true })}
 								placeholder="What is happening?"

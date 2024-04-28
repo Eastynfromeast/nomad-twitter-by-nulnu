@@ -4,14 +4,14 @@ import db from "../../../lib/server/db";
 import { withApiSession } from "../../../lib/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResponseType>) {
-	const { phone, email } = req.body;
+	const { phone, email, name } = req.body;
 	const userData = phone ? { phone } : { email };
 	const user = await db.user.upsert({
 		where: {
 			...userData,
 		},
 		create: {
-			name: "Jane Doe",
+			name,
 			...userData,
 		},
 		update: {},

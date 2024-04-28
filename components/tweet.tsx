@@ -22,11 +22,11 @@ export default function TweetItem({ id, userName, createdAt, hearts, contents, .
 					<div className="profile_img empty" />
 					<div className="w-[90%] *:w-full">
 						<div className="flex justify-between">
-							<h6 className="font-bold">{userName}</h6>
-							<p>{changeDateFormat(createdAt)}</p>
+							<h6 className="font-bold text-base">{userName}</h6>
+							<p className="text-[15px]">{changeDateFormat(createdAt)}</p>
 						</div>
 						<div>
-							<p>{contents}</p>
+							<p className="text-base">{contents}</p>
 						</div>
 						<div className="flex space-x-2 items-end justify-end absolute right-0 bottom-4">
 							<div className="flex items-center text-neutral-600">

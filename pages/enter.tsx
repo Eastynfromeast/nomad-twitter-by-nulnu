@@ -56,8 +56,7 @@ const Enter: NextPage = () => {
 	useEffect(() => {
 		if (userData !== undefined) {
 			alert("You are already logged in!");
-			console.log(userData);
-			// router.push("/");
+			router.push("/");
 		}
 	}, [userData]);
 
@@ -65,13 +64,15 @@ const Enter: NextPage = () => {
 		if (data?.sendData === null) {
 			alert("You don't have an account. Please join us!");
 			router.push("/create-account");
-		} else {
-			console.log(data?.sendData);
+		} else if (data?.sendData.payload !== undefined) {
+			alert("You are token is generated! Open the console.");
+			console.log(`Your token : ${data?.sendData.payload}`);
 		}
 	}, [data]);
 
 	useEffect(() => {
 		if (tokenData?.ok) {
+			alert("Yay! We are moving to homepage!");
 			router.push("/");
 		}
 	}, [tokenData]);
@@ -79,7 +80,7 @@ const Enter: NextPage = () => {
 	return (
 		<div className="px-5 max-w-xl mx-auto min-h-screen base_color">
 			{isLoading ? (
-				<Loading text="checking login status" />
+				<Loading text="Checking login status" />
 			) : (
 				<>
 					<h1 className="text-4xl font-bold pt-32 pb-8 border-transparent border-[1px] border-b-[#060504]">

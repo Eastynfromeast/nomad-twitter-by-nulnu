@@ -60,7 +60,7 @@ a {
 }
 
 .profile_img {
-	@apply w-14 h-14 drop-shadow-md;
+	@apply w-14 h-14 drop-shadow-md rounded-xl;
 }
 
 .empty {
