@@ -26,7 +26,8 @@ interface ITweetDataResponse {
 const TweetPage: NextPage = () => {
 	const router = useRouter();
 	const { data, mutate } = useSWR<ITweetDataResponse>(router.query.id ? `/api/tweets/${router.query.id}` : null);
-	console.log(data);
+	const [isLiked, setIsLiked] = useState(data?.isLiked);
+	const [likedNum, setLikedNum] = useState<number>(data?.tweet?._count.favs);
 	const [createdDate, setCreatedDate] = useState("");
 	const changeDateFormat = (createdAt: Date) => {
 		const date = new Date(createdAt);
@@ -37,7 +38,23 @@ const TweetPage: NextPage = () => {
 	const [toggleFav] = useMutation(`/api/tweets/${router.query.id}/fav`);
 	const onFavClick = () => {
 		if (!data) return;
-		mutate(prev => prev && { ...prev, isLiked: !prev.isLiked }, false);
+		setIsLiked(!isLiked);
+		mutate(
+			prev =>
+				prev && {
+					...prev,
+					isLiked: !prev.isLiked,
+					tweet: {
+						...prev.tweet,
+						_count: {
+							...prev.tweet._count,
+							favs: isLiked ? likedNum - 1 : likedNum + 1,
+						},
+					},
+				},
+			false
+		);
+		setLikedNum(prev => prev + (isLiked ? -1 : 1));
 		toggleFav({});
 	};
 	useEffect(() => {
@@ -86,7 +103,7 @@ const TweetPage: NextPage = () => {
 											d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
 										/>
 									</svg>
-									<span>{data?.tweet?._count.favs}</span>
+									<span>{likedNum}</span>
 								</button>
 							</div>
 						</div>
@@ -96,7 +113,7 @@ const TweetPage: NextPage = () => {
 				)}
 				<div className="mt-6">
 					<h2 className="border-b-[1px] border-[#060504] text-lg font-semibold pb-4">Maybe you will like this post too...</h2>
-					<div className="mt-6 flex flex-col space-y-4 ">
+					<div className="flex flex-col">
 						{data?.relatedTweets && data?.relatedTweets.length > 0 ? (
 							data?.relatedTweets?.map((tweet: TweetWithUser) => (
 								<TweetItem

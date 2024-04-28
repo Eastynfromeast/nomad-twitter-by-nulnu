@@ -31,7 +31,7 @@ const Home: NextPage = () => {
 				<title>Home</title>
 			</Head>
 			{isLoading ? <Loading text="checking login status" /> : null}
-			<div className="flex flex-col space-y-5">
+			<div className="flex flex-col">
 				{data?.tweets.map(tweet => (
 					<TweetItem
 						key={tweet.id}

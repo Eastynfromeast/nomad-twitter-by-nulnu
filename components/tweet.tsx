@@ -17,7 +17,7 @@ export default function TweetItem({ id, userName, createdAt, hearts, contents, .
 	};
 	return (
 		<Link href={`/tweets/${id}`} {...rest}>
-			<a className="h-40 border-b-[1px] border-[#060504] border-dashed relative">
+			<a className="h-40 py-4 border-b-[1px] border-[#060504] border-dashed relative">
 				<div className="flex justify-between space-x-3">
 					<div className="profile_img empty" />
 					<div className="w-[90%] *:w-full">

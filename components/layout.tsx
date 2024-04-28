@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { cls } from "../lib/client/utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,8 +17,9 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
 	const onClickBack = () => {
 		router.back();
 	};
+
 	return (
-		<div className="max-w-xl mx-auto min-h-screen base_color relative shadow-lg ">
+		<div className={cls("max-w-xl mx-auto min-h-screen base_color relative shadow-lg")}>
 			<div className="w-full max-w-xl flex justify-center text-lg px-5 pt-5">
 				{canGoBack ? (
 					<button

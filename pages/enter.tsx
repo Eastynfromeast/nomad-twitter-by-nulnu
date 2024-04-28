@@ -72,8 +72,8 @@ const Enter: NextPage = () => {
 
 	useEffect(() => {
 		if (tokenData?.ok) {
-			alert("Yay! We are moving to homepage!");
 			router.push("/");
+			alert("Yay! We are moving to homepage!");
 		}
 	}, [tokenData]);
 

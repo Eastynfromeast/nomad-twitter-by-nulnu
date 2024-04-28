@@ -19,9 +19,29 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 				},
 			},
 		});
+
+		const usersTweets = await db.tweet.findMany({
+			where: {
+				userId: req.session.user?.id,
+			},
+			include: {
+				user: {
+					select: {
+						name: true,
+					},
+				},
+				_count: {
+					select: {
+						favs: true,
+					},
+				},
+			},
+		});
+
 		res.json({
 			ok: true,
 			userProfile,
+			usersTweets,
 		});
 	} else {
 		return res.status(404).end();
