@@ -18,6 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 				select: {
 					id: true,
 					name: true,
+					avatar: true,
 				},
 			},
 			_count: {
@@ -47,6 +48,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 			user: {
 				select: {
 					name: true,
+					avatar: true,
 				},
 			},
 			_count: {

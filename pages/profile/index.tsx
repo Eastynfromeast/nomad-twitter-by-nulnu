@@ -6,6 +6,7 @@ import useSWR from "swr";
 import IconPen from "../../components/icon/IconPen";
 import TweetItem from "../../components/tweet";
 import { TweetWithUser } from "../tweets/[id]";
+import { cls } from "lib/client/utils";
 
 const Profile: NextPage = () => {
 	const { data } = useSWR("/api/users/profile");
@@ -25,7 +26,9 @@ const Profile: NextPage = () => {
 			</Head>
 			<div className="flex items-center space-x-5">
 				<div className="w-full h-40 pt-4 flex items-start space-x-5 border border-b-[#060504] border-dashed border-transparent">
-					<div className="w-24 h-24 rounded-lg drop-shadow-md empty" />
+					<div className={cls("w-24 h-24 rounded-lg drop-shadow-md", data?.userProfile?.avatar ? "" : "empty")}>
+						{data?.userProfile?.avatar !== null ? <img src={data?.userProfile?.avatar} className="w-full rounded-md" /> : null}
+					</div>
 					<div className="*:w-full">
 						<div className="flex flex-col *:w-full">
 							<h6 className="font-bold text-base mb-1">{data?.userProfile.name}</h6>
@@ -75,6 +78,7 @@ const Profile: NextPage = () => {
 							createdAt={tweet.createdAt}
 							hearts={tweet?._count.favs}
 							contents={tweet.context}
+							userAvatar={tweet?.user.avatar ? tweet?.user.avatar : ""}
 						/>
 					))
 				)}

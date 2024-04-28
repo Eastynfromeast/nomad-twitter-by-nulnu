@@ -73,7 +73,9 @@ const TweetPage: NextPage = () => {
 				{/* {isValidating ? <Loading text="We are calling..." /> : null} */}
 				{data?.tweet !== null ? (
 					<div className="flex justify-between space-x-3 min-h-[160px] border-b-[1px] border-[#060504] border-dashed relative">
-						<div className="profile_img empty" />
+						<div className={cls("profile_img", data?.tweet?.user.avatar !== null ? "" : "empty")}>
+							{data?.tweet?.user.avatar !== null ? <img src={data?.tweet?.user.avatar} className="w-full rounded-md" /> : null}
+						</div>
 						<div className="w-[90%] *:w-full">
 							<div className="flex justify-between">
 								<h6 className="font-bold">{data?.tweet?.user.name}</h6>
@@ -125,6 +127,7 @@ const TweetPage: NextPage = () => {
 									createdAt={tweet.createdAt}
 									hearts={tweet?._count?.favs}
 									contents={tweet.context}
+									userAvatar={tweet?.user.avatar ? tweet?.user.avatar : ""}
 								/>
 							))
 						) : (

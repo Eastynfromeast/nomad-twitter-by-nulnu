@@ -10,6 +10,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 				user: {
 					select: {
 						name: true,
+						avatar: true,
 					},
 				},
 				_count: {

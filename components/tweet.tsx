@@ -1,3 +1,4 @@
+import { cls } from "lib/client/utils";
 import Link from "next/link";
 
 export interface ITweetProps {
@@ -6,10 +7,11 @@ export interface ITweetProps {
 	hearts: number;
 	contents: string;
 	userName: string;
+	userAvatar?: string;
 	[key: string]: any;
 }
 
-export default function TweetItem({ id, userName, createdAt, hearts, contents, ...rest }: ITweetProps) {
+export default function TweetItem({ id, userName, createdAt, hearts, contents, userAvatar, ...rest }: ITweetProps) {
 	const changeDateFormat = (createdAt: Date) => {
 		const date = new Date(createdAt);
 		let formattedDate = date.toLocaleDateString("en-Us", { month: "short", day: "2-digit" });
@@ -19,7 +21,9 @@ export default function TweetItem({ id, userName, createdAt, hearts, contents, .
 		<Link href={`/tweets/${id}`} {...rest}>
 			<a className="h-40 py-4 border-b-[1px] border-[#060504] border-dashed relative">
 				<div className="flex justify-between space-x-3">
-					<div className="profile_img empty" />
+					<div className={cls("profile_img", userAvatar !== null ? "" : "empty")}>
+						{userAvatar !== "" ? <img src={userAvatar} className="w-full rounded-md" /> : null}
+					</div>
 					<div className="w-[90%] *:w-full">
 						<div className="flex justify-between">
 							<h6 className="font-bold text-base">{userName}</h6>

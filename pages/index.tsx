@@ -40,6 +40,7 @@ const Home: NextPage = () => {
 						createdAt={tweet.createdAt}
 						hearts={tweet._count.favs}
 						contents={tweet.context}
+						userAvatar={tweet?.user.avatar ? tweet?.user.avatar : ""}
 					/>
 				))}
 			</div>
