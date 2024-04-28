@@ -1,4 +1,29 @@
 # Nomad Twitter Clone Coding
+
+## 페이지 구현 스크린샷
+
+### Enter : 로그인 되지 않은 유저가 처음으로 보게 될 로그인 화면
+![Screenshot 2024-04-29 at 12 15 55 AM](https://github.com/Eastynfromeast/nomad-twitter-by-nulnu/assets/95607479/1c9a7643-28e6-4ca2-81a2-8ebde65d38b7)
+
+### Join : 회원가입이 되어 있지 않은 혹은 로그인 페이지에서 회원가입 글귀를 누르면 나오게 될 회원가입 화면
+![Screenshot 2024-04-29 at 12 16 02 AM](https://github.com/Eastynfromeast/nomad-twitter-by-nulnu/assets/95607479/cd4b1891-ca5d-4953-a4ab-a5316b59763b)
+
+### Home : 로그인이 완료된 유저가 이동될 홈페이지
+![Screenshot 2024-04-29 at 12 08 22 AM](https://github.com/Eastynfromeast/nomad-twitter-by-nulnu/assets/95607479/6639f868-32df-414f-bedd-3a5036fbb22c)
+
+
+### Individual Tweet : 개별 트윗을 클릭했을 때 이동할 페이지
+![Screenshot 2024-04-29 at 12 08 34 AM](https://github.com/Eastynfromeast/nomad-twitter-by-nulnu/assets/95607479/248f1f73-e5ad-4e34-9ac7-823628f0863a)
+
+### Write : 유저가 트윗을 작성하는 페이지
+![Screenshot 2024-04-29 at 12 10 23 AM](https://github.com/Eastynfromeast/nomad-twitter-by-nulnu/assets/95607479/cefc310d-5171-4e7f-85b4-cc279f34c97e)
+
+### Profile : 유저의 프로필을 볼 수 있는 페이지
+![Screenshot 2024-04-29 at 12 08 38 AM](https://github.com/Eastynfromeast/nomad-twitter-by-nulnu/assets/95607479/9aee6f38-10c3-45aa-abe9-2b0dfc69400c)
+
+
+
+## 요구 사항
 - **NextJS**, **Prisma**, **Tailwind**, **API Routes** 그리고 **SWR** 를 활용하여 아래 페이지를 완성합니다.
 - `/` : 로그인 여부를 확인하여 로그인이 되어있다면 홈페이지를 그렇지 않다면 계정 생성 / 로그인 페이지로 이동하세요.
 - `/create-account` : 계정을 생성하는 페이지입니다.
@@ -25,4 +50,10 @@
 - `SWR`와 `tailwind`도 챌린지 blueprint에 설정되어 있습니다.
 
 
-# nomad-twitter-by-nulnu
+### nomad-twitter-by-nulnu
+
+## 앞으로 추가하고 싶은 사항
+- 로그아웃
+- 프로필 수정 기능
+- 트윗 수정 / 삭제 기능
+
