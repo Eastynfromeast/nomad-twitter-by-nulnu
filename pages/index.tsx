@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 			</Head>
 			{isLoading ? <Loading text="checking login status" /> : null}
 			<div className="flex flex-col">
-				{data?.tweets.map(tweet => (
+				{data?.tweets?.map(tweet => (
 					<TweetItem
 						key={tweet.id}
 						userName={tweet?.user?.name ? tweet.user.name : "Anonymous"}

@@ -28,10 +28,10 @@ const Enter: NextPage = () => {
 	const { user: userData, isLoading } = useUser();
 
 	const [enter, { loading, data }] = useMutation("/api/users/enter");
-	const [confirmToken, { loading: tokenLoading, data: tokenData }] = useMutation<IMutationResult>("/api/users/confirm");
+	const [confirmToken, { loading: tokenLoading, data: tokenData, error: tokenError }] = useMutation<IMutationResult>("/api/users/confirm");
 	const { register, handleSubmit, reset } = useForm();
 	const { register: tokenRegister, handleSubmit: tokenHandleSubmit } = useForm<ITokenForm>();
-	const [method, setMethod] = useState<"email" | "phone">("email");
+	const [method, setMthod] = useState<"email" | "phone">("email");
 	const router = useRouter();
 
 	const onClickEmail = () => {
@@ -74,8 +74,10 @@ const Enter: NextPage = () => {
 		if (tokenData?.ok) {
 			router.push("/");
 			alert("Yay! We are moving to homepage!");
+		} else if (tokenError !== null) {
+			console.log(tokenError);
 		}
-	}, [tokenData]);
+	}, [tokenData, tokenError]);
 
 	return (
 		<div className="px-5 max-w-xl mx-auto min-h-screen base_color">
@@ -100,6 +102,7 @@ const Enter: NextPage = () => {
 										placeholder="Put the token you got"
 									/>
 								</div>
+								{/* {tokenError == undefined ? <p> Wrong token </p> : ""} react-hook-fomr 에러 가져오기 */}
 								<Button text={loading ? "...loading" : "Confirm token"} />
 							</form>
 						) : (

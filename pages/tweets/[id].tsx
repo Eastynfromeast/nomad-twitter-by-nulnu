@@ -26,7 +26,7 @@ const TweetPage: NextPage = () => {
 	const router = useRouter();
 	const { data, mutate } = useSWR<ITweetDataResponse>(router.query.id ? `/api/tweets/${router.query.id}` : null);
 	const [isLiked, setIsLiked] = useState(data?.isLiked);
-	const [likedNum, setLikedNum] = useState(0);
+	const [likedNum, setLikedNum] = useState(data?.tweet?._count?.favs);
 	const [createdDate, setCreatedDate] = useState("");
 	const changeDateFormat = (createdAt: Date) => {
 		const date = new Date(createdAt);

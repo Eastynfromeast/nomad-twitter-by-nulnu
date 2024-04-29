@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { cls } from "../lib/client/utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -36,7 +36,9 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
 			<div className={cls("pt-4 px-5", hasTabBar ? "pb-24" : "")}>{children}</div>
 			{hasTabBar ? (
 				<nav className="flex justify-between bg-[#F4F5F0] border-t-[1px] border-[#060504] p-4 fixed bottom-0 w-full max-w-xl box-border">
-					<a className="font-bold">{user ? "Log out" : "Log in"}</a>
+					<Link href={user ? "/logout" : "/enter"}>
+						<a className="font-bold">{user ? "Log out" : "Log in"}</a>
+					</Link>
 					<Link href="/">
 						<a className="font-bold">Home</a>
 					</Link>
