@@ -7,6 +7,7 @@ import IconPen from "../../components/icon/IconPen";
 import TweetItem from "../../components/tweet";
 import { TweetWithUser } from "../tweets/[id]";
 import { cls } from "lib/client/utils";
+import Link from "next/link";
 
 const Profile: NextPage = () => {
 	const { data } = useSWR("/api/users/profile");
@@ -25,7 +26,7 @@ const Profile: NextPage = () => {
 				<title>Profile</title>
 			</Head>
 			<div className="flex items-center space-x-5">
-				<div className="w-full h-40 pt-4 flex items-start space-x-5 border border-b-[#060504] border-dashed border-transparent">
+				<div className="w-full h-40 pt-4 flex items-start space-x-5 border-b border-b-[#060504] border-dashed ">
 					<div className={cls("w-24 h-24 rounded-lg drop-shadow-md", data?.userProfile?.avatar ? "" : "empty")}>
 						{data?.userProfile?.avatar !== null ? <img src={data?.userProfile?.avatar} className="w-full rounded-md" /> : null}
 					</div>
@@ -37,6 +38,9 @@ const Profile: NextPage = () => {
 							) : (
 								<p className="text-[14px]">{data?.userProfile.phone}</p>
 							)}
+							<Link href="/profile/edit">
+								<a className="w-auto py-1 text-[13px] opacity-90 transition-all hover:font-bold"> Edit profile &rarr;</a>
+							</Link>
 						</div>
 						<div className="flex items-center space-x-4 mt-2">
 							<div className="flex items-center py-1 text-neutral-600">
