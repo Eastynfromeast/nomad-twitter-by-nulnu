@@ -31,7 +31,7 @@ const Enter: NextPage = () => {
 	const [confirmToken, { loading: tokenLoading, data: tokenData, error: tokenError }] = useMutation<IMutationResult>("/api/users/confirm");
 	const { register, handleSubmit, reset } = useForm();
 	const { register: tokenRegister, handleSubmit: tokenHandleSubmit } = useForm<ITokenForm>();
-	const [method, setMthod] = useState<"email" | "phone">("email");
+	const [method, setMethod] = useState<"email" | "phone">("email");
 	const router = useRouter();
 
 	const onClickEmail = () => {
