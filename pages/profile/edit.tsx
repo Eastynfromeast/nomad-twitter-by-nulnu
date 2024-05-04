@@ -16,7 +16,7 @@ interface IValidProfileForm {
 
 export default function ProfileEdit() {
 	const { data } = useSWR("/api/users/profile");
-	console.log(data);
+
 	const { register, handleSubmit } = useForm({
 		defaultValues: {
 			id: data?.userProfile?.id,
@@ -25,7 +25,7 @@ export default function ProfileEdit() {
 			phone: data?.userProfile?.phone ? data?.userProfile?.phone : undefined,
 		},
 	});
-	const [updateProfile, { data: updatedProfileData, loading }] = useMutation("/api/users/profile/update");
+	const [updateProfile, { data: updatedProfileData, loading, error }] = useMutation("/api/users/profile/update");
 	const [emailRequired, setEmailRequired] = useState(true);
 	const [phoneRequired, setPhoneRequired] = useState(false);
 
@@ -44,6 +44,8 @@ export default function ProfileEdit() {
 	useEffect(() => {
 		if (updatedProfileData?.ok) {
 			console.log(updatedProfileData);
+		} else {
+			console.log(error);
 		}
 	}, [updatedProfileData]);
 
