@@ -15,6 +15,28 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 	});
 	if (!thisUser) return res.status(400).json({ ok: false, error: "사용자를 찾을 수 없습니다." });
 
+	if (email) {
+		const findEmailUser = await db.user.findFirst({
+			where: {
+				email,
+			},
+		});
+		if (findEmailUser && findEmailUser.id !== thisUser.id) {
+			return res.json({ ok: false, error: "이미 사용 중인 이메일입니다." });
+		}
+	}
+
+	if (phone) {
+		const findPhoneUser = await db.user.findFirst({
+			where: {
+				phone,
+			},
+		});
+		if (findPhoneUser && findPhoneUser.id !== thisUser.id) {
+			return res.json({ ok: false, error: "이미 사용 중인 휴대폰 번호입니다." });
+		}
+	}
+
 	if (thisUser?.email === email && thisUser?.phone === phone) {
 		updateUser = await db.user.update({
 			where: {
@@ -26,6 +48,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 				phone,
 			},
 		});
+
+		res.json({
+			ok: true,
+			updateUser,
+		});
 	} else {
 		const existingUser = await db.user.findFirst({
 			where: {
@@ -34,14 +61,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 		});
 
 		if (existingUser && existingUser.id !== thisUser?.id) {
-			return res.status(400).json({ ok: false, error: "다른 사용자가 사용 중인 값이 존재합니다." });
+			return res.json({ ok: false, error: "다른 사용자가 사용 중인 값이 존재합니다." });
 		}
 	}
-
-	res.json({
-		ok: true,
-		// updateUser,
-	});
 }
 
 export default withApiSession(withHandler({ methods: ["POST"], handler }));

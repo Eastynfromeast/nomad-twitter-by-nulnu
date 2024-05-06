@@ -25,7 +25,7 @@ export default function ProfileEdit() {
 			phone: data?.userProfile?.phone ? data?.userProfile?.phone : undefined,
 		},
 	});
-	const [updateProfile, { data: updatedProfileData, loading, error }] = useMutation("/api/users/profile/update");
+	const [updateProfile, { data: updatedProfileData, loading, error: updateError }] = useMutation("/api/users/profile/update");
 	const [emailRequired, setEmailRequired] = useState(true);
 	const [phoneRequired, setPhoneRequired] = useState(false);
 
@@ -45,9 +45,9 @@ export default function ProfileEdit() {
 		if (updatedProfileData?.ok) {
 			console.log(updatedProfileData);
 		} else {
-			console.log(error);
+			console.log(updateError);
 		}
-	}, [updatedProfileData]);
+	}, [updatedProfileData, updateError]);
 
 	return (
 		<Layout title="Edit profile" canGoBack>
